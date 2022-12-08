@@ -101,3 +101,22 @@ exibeListaAlunos ((Aluno matricula nome curso nascimento categoria):xs) = do
 exibeListaAlunos ((Disciplina cod nome curso ch categoria):xs) = exibeListaAlunos xs
 
 exibeListaAlunos [] = putStrLn "------FINALIZADO------"
+
+
+-- QUESTÃO 4
+
+exibeListaDisciplinas :: [Sistema] -> IO()
+exibeListaDisciplinas ((Professor matricula nome unidade categoria):xs) = exibeListaDisciplinas xs
+
+exibeListaDisciplinas ((Aluno matricula nome curso nascimento categoria):xs) = exibeListaDisciplinas xs
+
+exibeListaDisciplinas ((Disciplina cod nome curso ch categoria):xs) = do
+    putStrLn "------DISCIPLINA------"
+    putStrLn ("Código: " ++ show cod)
+    putStrLn ("Nome: " ++ show nome)
+    putStrLn ("Curso: " ++ show curso)
+    putStrLn ("Carga Horária: "++ show ch)
+    putStrLn ("Categoria: "++ show categoria)
+    exibeListaDisciplinas xs
+
+exibeListaDisciplinas [] = putStrLn "------FINALIZADO------"
