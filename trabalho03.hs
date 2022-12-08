@@ -86,12 +86,18 @@ exibeListaProfessores [] = putStrLn "------FINALIZADO------"
 
 -- QUESTÃO 3
 
-exibeListaProfessores :: [Sistema] -> IO()
-exibeListaProfessores ((Professor matricula nome unidade categoria):xs) = exibeListaProfessores xs
+exibeListaAlunos :: [Sistema] -> IO()
+exibeListaAlunos ((Professor matricula nome unidade categoria):xs) = exibeListaAlunos xs
 
-exibeListaProfessores ((Aluno matricula nome curso nascimento categoria):xs) = do
+exibeListaAlunos ((Aluno matricula nome curso nascimento categoria):xs) = do
+    putStrLn "------ALUNO------"
+    putStrLn ("Matricula: " ++ show matricula)
+    putStrLn ("Nome: " ++ show nome)
+    putStrLn ("Curso: " ++ show curso)
+    putStrLn ("Nascimento: "++ show nascimento)
+    putStrLn ("Categoria: "++ show categoria)
+    exibeListaAlunos xs
 
+exibeListaAlunos ((Disciplina cod nome curso ch categoria):xs) = exibeListaAlunos xs
 
-exibeListaProfessores ((Disciplina cod nome curso ch categoria):xs) = exibeListaProfessores xs
-
-exibeListaProfessores [] = putStrLn "------FINALIZADO------"
+exibeListaAlunos [] = putStrLn "------FINALIZADO------"
