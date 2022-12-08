@@ -120,3 +120,7 @@ exibeListaDisciplinas ((Disciplina cod nome curso ch categoria):xs) = do
     exibeListaDisciplinas xs
 
 exibeListaDisciplinas [] = putStrLn "------FINALIZADO------"
+
+
+-- QUESTÃO 5
+
