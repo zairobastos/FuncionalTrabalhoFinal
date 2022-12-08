@@ -36,3 +36,26 @@ item9 = Disciplina "31" "Projeto Integrador III" "Ciencia da Computacao" 64 "dis
 lista :: [Sistema] -- Criação de uma lista de Sistema
 lista = [item0,item1,item2,item3,item4,item5,item6,item7,item8,item9] -- Adicionando todos os valores a lista de itens
 
+exibeListaCompleta::[Sistema] -> IO()
+exibeListaCompleta (Professor matricula nome unidade categoria) = do
+ putStrLn "------PROFESSOR------"
+ putStrLn ("Matricula: " ++ show matricula)
+ putStrLn ("Nome: " ++ show nome)
+ putStrLn ("Unidade: " ++ show unidade)
+ putStrLn ("Categoria: "++ show categoria)
+
+exibeListaCompleta (Aluno matricula nome curso nascimento categoria) = do
+ putStrLn "------ALUNO------"
+ putStrLn ("Matricula: " ++ show matricula)
+ putStrLn ("Nome: " ++ show nome)
+ putStrLn ("Curso: " ++ show curso)
+ putStrLn ("Nascimento: "++ show nascimento)
+ putStrLn ("Categoria: "++ show categoria)
+
+exibeListaCompleta (Disciplina cod nome curso ch categoria) = do
+ putStrLn "------DISCIPLINA------"
+ putStrLn ("Código: " ++ show cod)
+ putStrLn ("Nome: " ++ show nome)
+ putStrLn ("Curso: " ++ show curso)
+ putStrLn ("Carga Horária: "++ show ch)
+ putStrLn ("Categoria: "++ show categoria)
