@@ -28,6 +28,7 @@ item6 = Disciplina "31" "Projeto Integrador III" "Ciencia da Computacao" 64 "dis
 item7 = Aluno "5096" "Carlos Eduardo Rodrigues Pita" "Ciencia da Computacao" (10,10,1930) "aluno"
 item8 = Disciplina "28" "Programacao Funcional" "Ciencia da Computacao" 64 "disciplina"
 item9 = Disciplina "30" "Inteligencia Artificial" "Ciencia da Computacao" 64 "disciplina"
+item10 = Aluno "5098" "Carlos Eduardo " "Ciencia da Computacao" (10,10,2010) "aluno"
 
 
 lista :: [Sistema] -- Criação de uma lista de Sistema
@@ -124,6 +125,29 @@ exibeListaDisciplinas [] = putStrLn "------FINALIZADO------"
 
 
 -- QUESTÃO 5
+
+anoNascimento :: Nascimento -> Int
+anoNascimento (dia,mes,ano) = ano
+
+exibeListaAlunosAdulto :: [Sistema] -> IO()
+exibeListaAlunosAdulto ((Professor matricula nome unidade categoria):xs) = exibeListaAlunosAdulto xs
+
+exibeListaAlunosAdulto ((Aluno matricula nome curso nascimento categoria):xs) = do
+    if (2022 - (anoNascimento nascimento)) >=18 then do
+        putStrLn "------ALUNO------"
+        putStrLn ("Matricula: " ++ show matricula)
+        putStrLn ("Nome: " ++ show nome)
+        putStrLn ("Curso: " ++ show curso)
+        putStrLn ("Nascimento: "++ show nascimento)
+        putStrLn ("Categoria: "++ show categoria)
+        exibeListaAlunosAdulto xs
+    else do
+        exibeListaAlunosAdulto xs
+
+exibeListaAlunosAdulto ((Disciplina cod nome curso ch categoria):xs) = exibeListaAlunosAdulto xs
+
+exibeListaAlunosAdulto [] = putStrLn "------FINALIZADO------"
+
 
 -- Questão 06
 
