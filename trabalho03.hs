@@ -32,6 +32,9 @@ item9 = Disciplina "31" "Projeto Integrador III" "Ciencia da Computacao" 64 "dis
 lista :: [Sistema] -- Criação de uma lista de Sistema
 lista = [item0,item1,item2,item3,item4,item5,item6,item7,item8,item9] -- Adicionando todos os valores a lista de itens
 
+
+-- QUESTÃO 1
+
 exibeListaCompleta::[Sistema] -> IO()
 exibeListaCompleta ((Professor matricula nome unidade categoria):xs) = do
  putStrLn "------PROFESSOR------"
@@ -60,4 +63,22 @@ exibeListaCompleta ((Disciplina cod nome curso ch categoria):xs) = do
  exibeListaCompleta xs
 
 exibeListaCompleta [ ] = do
-    putStrLn "Lista lida por completo"
+    putStrLn "----LEITURA DA LISTA FINALIZADA-----"
+
+
+-- QUESTÃO 2
+
+exibeListaProfessores :: [Sistema] -> IO()
+exibeListaProfessores ((Professor matricula nome unidade categoria):xs) = do
+    putStrLn "------PROFESSOR------"
+    putStrLn ("Matricula: " ++ show matricula)
+    putStrLn ("Nome: " ++ show nome)
+    putStrLn ("Unidade: " ++ show unidade)
+    putStrLn ("Categoria: "++ show categoria)
+    exibeListaProfessores xs
+
+exibeListaProfessores ((Aluno matricula nome curso nascimento categoria):xs) = exibeListaProfessores xs
+
+exibeListaProfessores ((Disciplina cod nome curso ch categoria):xs) = exibeListaProfessores xs
+
+exibeListaProfessores [] = putStrLn "------FINALIZADO------"
