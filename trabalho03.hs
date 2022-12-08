@@ -124,3 +124,24 @@ exibeListaDisciplinas [] = putStrLn "------FINALIZADO------"
 
 
 -- QUESTÃO 5
+
+-- Questão 06
+
+exibeListaDisciplinas64 :: [Sistema] -> IO()
+exibeListaDisciplinas64 ((Professor matricula nome unidade categoria):xs) = exibeListaDisciplinas64 xs
+
+exibeListaDisciplinas64 ((Aluno matricula nome curso nascimento categoria):xs) = exibeListaDisciplinas64 xs
+
+exibeListaDisciplinas64 ((Disciplina cod nome curso ch categoria):xs) = do
+    if ch>64 then do
+        putStrLn "------DISCIPLINA------"
+        putStrLn ("Código: " ++ show cod)
+        putStrLn ("Nome: " ++ show nome)
+        putStrLn ("Curso: " ++ show curso)
+        putStrLn ("Carga Horária: "++ show ch)
+        putStrLn ("Categoria: "++ show categoria)
+        exibeListaDisciplinas64 xs
+    else do
+        exibeListaDisciplinas64 xs
+
+exibeListaDisciplinas64 [] = putStrLn "------FINALIZADO------"
