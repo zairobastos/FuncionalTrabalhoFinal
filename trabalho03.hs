@@ -16,9 +16,9 @@ type Nascimento = (Int,Int,Int) -- Criação do tipo de dados Nascimento
 
 -- Contrução do tipo Sistema
 data Sistema = Professor String String String String
- |Aluno String String String Nascimento String
- |Disciplina String String String Int String
-  deriving (Eq,Ord,Show)
+    |Aluno String String String Nascimento String
+    |Disciplina String String String Int String
+        deriving (Eq, Ord, Show)
 
 -- Base de dados 
 item0,item1,item2,item3,item4,item5,item6,item7,item8,item9 :: Sistema
@@ -33,29 +33,35 @@ item7 = Disciplina "29" "Calculo Diferencial e Integral" "Ciencia da Computacao"
 item8 = Disciplina "30" "Inteligencia Artificial" "Ciencia da Computacao" 64 "disciplina"
 item9 = Disciplina "31" "Projeto Integrador III" "Ciencia da Computacao" 64 "disciplina"
 
-lista :: [Sistema] -- Criação de uma lista de Sistema
+lista :: [Sistema]
 lista = [item0,item1,item2,item3,item4,item5,item6,item7,item8,item9] -- Adicionando todos os valores a lista de itens
 
-exibeListaCompleta::[Sistema] -> IO()
-exibeListaCompleta (Professor matricula nome unidade categoria) = do
- putStrLn "------PROFESSOR------"
- putStrLn ("Matricula: " ++ show matricula)
- putStrLn ("Nome: " ++ show nome)
- putStrLn ("Unidade: " ++ show unidade)
- putStrLn ("Categoria: "++ show categoria)
+exibeListaCompleta :: [Sistema] -> IO()
+exibeListaCompleta ((Professor matricula nome unidade categoria):xs) = do
+    putStrLn "------PROFESSOR------"
+    putStrLn ("Matricula: " ++ show matricula)
+    putStrLn ("Nome: " ++ show nome)
+    putStrLn ("Unidade: " ++ show unidade)
+    putStrLn ("Categoria: "++ show categoria)
+    exibeListaCompleta xs
 
-exibeListaCompleta (Aluno matricula nome curso nascimento categoria) = do
- putStrLn "------ALUNO------"
- putStrLn ("Matricula: " ++ show matricula)
- putStrLn ("Nome: " ++ show nome)
- putStrLn ("Curso: " ++ show curso)
- putStrLn ("Nascimento: "++ show nascimento)
- putStrLn ("Categoria: "++ show categoria)
+exibeListaCompleta ((Aluno matricula nome curso nascimento categoria):xs) = do
+    putStrLn "------ALUNO------"
+    putStrLn ("Matricula: " ++ show matricula)
+    putStrLn ("Nome: " ++ show nome)
+    putStrLn ("Curso: " ++ show curso)
+    putStrLn ("Nascimento: "++ show nascimento)
+    putStrLn ("Categoria: "++ show categoria)
+    exibeListaCompleta xs
 
-exibeListaCompleta (Disciplina cod nome curso ch categoria) = do
- putStrLn "------DISCIPLINA------"
- putStrLn ("Código: " ++ show cod)
- putStrLn ("Nome: " ++ show nome)
- putStrLn ("Curso: " ++ show curso)
- putStrLn ("Carga Horária: "++ show ch)
- putStrLn ("Categoria: "++ show categoria)
+exibeListaCompleta ((Disciplina cod nome curso ch categoria):xs) = do
+    putStrLn "------DISCIPLINA------"
+    putStrLn ("Código: " ++ show cod)
+    putStrLn ("Nome: " ++ show nome)
+    putStrLn ("Curso: " ++ show curso)
+    putStrLn ("Carga Horária: "++ show ch)
+    putStrLn ("Categoria: "++ show categoria)
+    exibeListaCompleta xs
+
+exibeListaCompleta [] = putStrLn "------FINALIZADO------"
+
