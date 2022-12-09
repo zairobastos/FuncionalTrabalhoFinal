@@ -37,7 +37,7 @@ lista = [item0,item1,item2,item3,item4,item5,item6,item7,item8,item9,item10] -- 
 
 -- QUESTÃO 1
 
-exibeListaCompleta::[Sistema] -> IO()
+exibeListaCompleta :: [Sistema] -> IO()
 exibeListaCompleta ((Professor matricula nome unidade categoria):xs) = do
     putStrLn "------PROFESSOR------"
     putStrLn ("Matricula: " ++ show matricula)
@@ -126,19 +126,16 @@ exibeListaDisciplinas [] = putStrLn "------FINALIZADO------"
 
 -- QUESTÃO 5
 
-anoNascimento :: Nascimento -> Int
-anoNascimento (dia,mes,ano) = ano
-
 exibeListaAlunosAdulto :: [Sistema] -> IO()
 exibeListaAlunosAdulto ((Professor matricula nome unidade categoria):xs) = exibeListaAlunosAdulto xs
 
-exibeListaAlunosAdulto ((Aluno matricula nome curso nascimento categoria):xs) = do
-    if (2022 - (anoNascimento nascimento)) >=18 then do
+exibeListaAlunosAdulto ((Aluno matricula nome curso (dia, mes, ano) categoria):xs) = do
+    if (2022 - ano) >= 18 then do
         putStrLn "------ALUNO------"
         putStrLn ("Matricula: " ++ show matricula)
         putStrLn ("Nome: " ++ show nome)
         putStrLn ("Curso: " ++ show curso)
-        putStrLn ("Nascimento: "++ show nascimento)
+        putStrLn ("Nascimento: "++ show (dia, mes, ano))
         putStrLn ("Categoria: "++ show categoria)
         exibeListaAlunosAdulto xs
     else do
