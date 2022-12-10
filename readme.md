@@ -29,16 +29,18 @@ O propósito deste trabalho é a criação de um módulo com funções para mani
 --aluno(matricula, nome, curso, nascimento,cat)
 --disciplina(cod, nome, curso, ch,cat)
 
-type Nascimento = (Int,Int,Int)
+type Nascimento = (Int,Int,Int) -- Criação do tipo de dados Nascimento
+
+-- Contrução do tipo Sistema
 data Sistema = Professor String String String String
-|Aluno String String String Nascimento String
-|Disciplina String String String Int String
-deriving (Eq,Ord,Show)
+    |Aluno String String String Nascimento String
+    |Disciplina String String String Int String
+        deriving (Eq,Ord,Show)
 ```
 O tipo algébrico Sistema armazena itens que podem ser valores de professor, aluno e disciplina, cada um tem campos específicos, sendo que a última informação de cada, cat, indica a que tipo pertence. Abaixo há um exemplo, não exaustivo, de registro que pode ser usado como teste:
 
 ```haskell
--- Base de dados utilizada no trabalho
+-- Base de dados 
 item0,item1,item2,item3,item4,item5,item6,item7,item8,item9,item10 :: Sistema
 item0 = Disciplina "29" "Calculo Diferencial e Integral" "Ciencia da Computacao" 96 "disciplina"
 item1 = Professor "1234" "Luiz Alberto" "Campus de Crateus" "professor"
@@ -65,22 +67,22 @@ Para uma melhor visualização gráfica e compilação das questões, recomendam
 ```haskell
 -- QUESTÃO 1
 
-exibeListaCompleta::[Sistema] -> IO()
+exibeListaCompleta :: [Sistema] -> IO()
 exibeListaCompleta ((Professor matricula nome unidade categoria):xs) = do
     putStrLn "------PROFESSOR------"
     putStrLn ("Matricula: " ++ show matricula)
     putStrLn ("Nome: " ++ show nome)
     putStrLn ("Unidade: " ++ show unidade)
-    putStrLn ("Categoria: "++ show categoria)
+    putStrLn ("Categoria: " ++ show categoria ++ "\n")
     exibeListaCompleta xs
 
-exibeListaCompleta ((Aluno matricula nome curso nascimento categoria):xs) = do
+exibeListaCompleta ((Aluno matricula nome curso (dia, mes, ano) categoria):xs) = do
     putStrLn "------ALUNO------"
     putStrLn ("Matricula: " ++ show matricula)
     putStrLn ("Nome: " ++ show nome)
     putStrLn ("Curso: " ++ show curso)
-    putStrLn ("Nascimento: "++ show nascimento)
-    putStrLn ("Categoria: "++ show categoria)
+    putStrLn ("Nascimento: " ++ show dia ++ "/" ++ show mes ++ "/" ++ show ano)
+    putStrLn ("Categoria: " ++ show categoria ++ "\n")
     exibeListaCompleta xs
 
 exibeListaCompleta ((Disciplina cod nome curso ch categoria):xs) = do
@@ -88,120 +90,138 @@ exibeListaCompleta ((Disciplina cod nome curso ch categoria):xs) = do
     putStrLn ("Código: " ++ show cod)
     putStrLn ("Nome: " ++ show nome)
     putStrLn ("Curso: " ++ show curso)
-    putStrLn ("Carga Horária: "++ show ch)
-    putStrLn ("Categoria: "++ show categoria)
+    putStrLn ("Carga Horária: " ++ show ch)
+    putStrLn ("Categoria: " ++ show categoria ++ "\n")
     exibeListaCompleta xs
 
 exibeListaCompleta [] = do
     putStrLn "----LEITURA DA LISTA FINALIZADA-----"
 ```
+Para testar o código acima, abra o terminal do VS Code e execute os seguintes comandos:
+```
+> ghci trabalho03.hs
+> exibeListaCompleta lista
+```
 2. Crie uma função que recebe uma lista de itens do Sistema e mostre uma lista dos professores.
 ```haskell
 -- QUESTÃO 2
 
+isProfessor :: Sistema -> Bool
+isProfessor (Professor _ _ _ x)
+    |x == "professor" = True
+    |otherwise = False
+
+isProfessor (Aluno {}) = False
+isProfessor (Disciplina {}) = False
+
 exibeListaProfessores :: [Sistema] -> IO()
-exibeListaProfessores ((Professor matricula nome unidade categoria):xs) = do
-    putStrLn "------PROFESSOR------"
-    putStrLn ("Matricula: " ++ show matricula)
-    putStrLn ("Nome: " ++ show nome)
-    putStrLn ("Unidade: " ++ show unidade)
-    putStrLn ("Categoria: "++ show categoria)
-    exibeListaProfessores xs
-
-exibeListaProfessores ((Aluno matricula nome curso nascimento categoria):xs) = exibeListaProfessores xs
-
-exibeListaProfessores ((Disciplina cod nome curso ch categoria):xs) = exibeListaProfessores xs
-
-exibeListaProfessores [] = putStrLn "------FINALIZADO------"
+exibeListaProfessores prof = print([a | a <- lista, isProfessor a])
+```
+Para testar o código acima, abra o terminal do VS Code e execute os seguintes comandos:
+```
+> ghci trabalho03.hs
+> exibeListaProfessores lista
 ```
 3. Crie uma função que recebe uma lista de itens do Sistema e mostre uma lista dos alunos.
 ```haskell
 -- QUESTÃO 3
 
+isAluno :: Sistema -> Bool
+isAluno (Aluno _ _ _ _ x)
+    |x == "aluno" = True
+    |otherwise = False
+
+isAluno (Professor {}) = False
+isAluno (Disciplina {}) = False
+
 exibeListaAlunos :: [Sistema] -> IO()
-exibeListaAlunos ((Professor matricula nome unidade categoria):xs) = exibeListaAlunos xs
-
-exibeListaAlunos ((Aluno matricula nome curso nascimento categoria):xs) = do
-    putStrLn "------ALUNO------"
-    putStrLn ("Matricula: " ++ show matricula)
-    putStrLn ("Nome: " ++ show nome)
-    putStrLn ("Curso: " ++ show curso)
-    putStrLn ("Nascimento: "++ show nascimento)
-    putStrLn ("Categoria: "++ show categoria)
-    exibeListaAlunos xs
-
-exibeListaAlunos ((Disciplina cod nome curso ch categoria):xs) = exibeListaAlunos xs
-
-exibeListaAlunos [] = putStrLn "------FINALIZADO------"
+exibeListaAlunos alun = print([a | a <- alun, isAluno a])
+```
+Para testar o código acima, abra o terminal do VS Code e execute os seguintes comandos:
+```
+> ghci trabalho03.hs
+> exibeListaAlunos lista
 ```
 4. Crie uma função que recebe uma lista de itens do Sistema e mostre uma lista das disciplinas.
 ```haskell
 -- QUESTÃO 4
 
+isDisciplina :: Sistema -> Bool
+isDisciplina (Disciplina _ _ _ _ x)
+    |x == "disciplina" = True
+    |otherwise = False
+
+isDisciplina (Professor {}) = False
+isDisciplina (Aluno {}) = False
+
 exibeListaDisciplinas :: [Sistema] -> IO()
-exibeListaDisciplinas ((Professor matricula nome unidade categoria):xs) = exibeListaDisciplinas xs
+exibeListaDisciplinas disc = print([a | a <- disc, isDisciplina a])
+```
+Para testar o código acima, abra o terminal do VS Code e execute os seguintes comandos:
+```
+> ghci trabalho03.hs
+> exibeListaDisciplinas lista
+```
+5. Crie uma função que recebe uma lista de itens do Sistema e mostre uma lista dos alunos, de forma legível, que já atingiram a maioridade, considerando o ano atual de 2022.
+```haskell
+-- QUESTÃO 5
 
-exibeListaDisciplinas ((Aluno matricula nome curso nascimento categoria):xs) = exibeListaDisciplinas xs
+exibeAlunosAdulto :: [Sistema] -> IO()
+exibeAlunosAdulto ((Professor matricula nome unidade categoria):xs) = exibeAlunosAdulto xs
 
-exibeListaDisciplinas ((Disciplina cod nome curso ch categoria):xs) = do
+exibeAlunosAdulto ((Aluno matricula nome curso (dia, mes, ano) categoria):xs) = do
+    if (2022 - ano) >= 18 then do
+        putStrLn "------ALUNO------"
+        putStrLn ("Matricula: " ++ show matricula)
+        putStrLn ("Nome: " ++ show nome)
+        putStrLn ("Curso: " ++ show curso)
+        putStrLn ("Nascimento: " ++ show dia ++ "/" ++ show mes ++ "/" ++ show ano)
+        putStrLn ("Categoria: " ++ show categoria ++ "\n")
+        exibeAlunosAdulto xs
+    else do
+        exibeAlunosAdulto xs
+
+exibeAlunosAdulto ((Disciplina cod nome curso ch categoria):xs) = exibeAlunosAdulto xs
+
+exibeAlunosAdulto [] = putStrLn "------FINALIZADO------"
+```
+Para testar o código acima, abra o terminal do VS Code e execute os seguintes comandos:
+```
+> ghci trabalho03.hs
+> exibeAlunosAdulto lista
+```
+
+6. Crie uma função que recebe uma lista de itens do Sistema e mostre os detalhes das disciplinas com carga horária acima de 64.
+```haskell
+-- QUESTÃO 6
+
+isMoreThan64 :: Sistema -> Bool
+isMoreThan64 (Disciplina _ _ _ ch _)
+    |ch > 64 = True
+    |otherwise = False
+
+isMoreThan64 (Aluno {}) = False
+isMoreThan64 (Professor {}) = False
+
+listaDisciplinas64 :: [Sistema] -> IO()
+listaDisciplinas64 disc64 = exibeListaDisciplinas64 (filter isMoreThan64 (filter isDisciplina disc64))
+
+exibeListaDisciplinas64 :: [Sistema] -> IO()
+exibeListaDisciplinas64 ((Disciplina cod nome curso ch categoria):xs) = do
     putStrLn "------DISCIPLINA------"
     putStrLn ("Código: " ++ show cod)
     putStrLn ("Nome: " ++ show nome)
     putStrLn ("Curso: " ++ show curso)
     putStrLn ("Carga Horária: "++ show ch)
     putStrLn ("Categoria: "++ show categoria)
-    exibeListaDisciplinas xs
+    exibeListaDisciplinas64 xs
 
-exibeListaDisciplinas [] = putStrLn "------FINALIZADO------"
+exibeListaDisciplinas64 [] = putStrLn "-----FINALIZADO-----"
 ```
-5. Crie uma função que recebe uma lista de itens do Sistema e mostre uma lista dos alunos, de forma legível, que já atingiram a maioridade, considerando o ano atual de 2022.
-```haskell
--- QUESTÃO 5
-
-anoNascimento :: Nascimento -> Int
-anoNascimento (dia,mes,ano) = ano
-
-exibeListaAlunosAdulto :: [Sistema] -> IO()
-exibeListaAlunosAdulto ((Professor matricula nome unidade categoria):xs) = exibeListaAlunosAdulto xs
-
-exibeListaAlunosAdulto ((Aluno matricula nome curso nascimento categoria):xs) = do
-    if (2022 - (anoNascimento nascimento)) >=18 then do
-        putStrLn "------ALUNO------"
-        putStrLn ("Matricula: " ++ show matricula)
-        putStrLn ("Nome: " ++ show nome)
-        putStrLn ("Curso: " ++ show curso)
-        putStrLn ("Nascimento: "++ show nascimento)
-        putStrLn ("Categoria: "++ show categoria)
-        exibeListaAlunosAdulto xs
-    else do
-        exibeListaAlunosAdulto xs
-
-exibeListaAlunosAdulto ((Disciplina cod nome curso ch categoria):xs) = exibeListaAlunosAdulto xs
-
-exibeListaAlunosAdulto [] = putStrLn "------FINALIZADO------"
+Para testar o código acima, abra o terminal do VS Code e execute os seguintes comandos:
 ```
-6. Crie uma função que recebe uma lista de itens do Sistema e mostre os detalhes das disciplinas com carga horária acima de 64.
-```haskell
--- Questão 06
-
-exibeListaDisciplinas64 :: [Sistema] -> IO()
-exibeListaDisciplinas64 ((Professor matricula nome unidade categoria):xs) = exibeListaDisciplinas64 xs
-
-exibeListaDisciplinas64 ((Aluno matricula nome curso nascimento categoria):xs) = exibeListaDisciplinas64 xs
-
-exibeListaDisciplinas64 ((Disciplina cod nome curso ch categoria):xs) = do
-    if ch>64 then do
-        putStrLn "------DISCIPLINA------"
-        putStrLn ("Código: " ++ show cod)
-        putStrLn ("Nome: " ++ show nome)
-        putStrLn ("Curso: " ++ show curso)
-        putStrLn ("Carga Horária: "++ show ch)
-        putStrLn ("Categoria: "++ show categoria)
-        exibeListaDisciplinas64 xs
-    else do
-        exibeListaDisciplinas64 xs
-
-exibeListaDisciplinas64 [] = putStrLn "------FINALIZADO------"
+> ghci trabalho03.hs
+> listaDisciplinas64 lista
 ```
 ### 👨‍💻 Desenvolvedores
 <a href="https://github.com/zairobastos/FuncionalTrabalhoFinal/graphs/contributors">
