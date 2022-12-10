@@ -12,9 +12,9 @@ type Nascimento = (Int,Int,Int) -- Criação do tipo de dados Nascimento
 
 -- Contrução do tipo Sistema
 data Sistema = Professor String String String String
- |Aluno String String String Nascimento String
- |Disciplina String String String Int String
-  deriving (Eq,Ord,Show)
+    |Aluno String String String Nascimento String
+    |Disciplina String String String Int String
+        deriving (Eq,Ord,Show)
 
 -- Base de dados 
 item0,item1,item2,item3,item4,item5,item6,item7,item8,item9,item10 :: Sistema
@@ -68,22 +68,43 @@ exibeListaCompleta [] = do
     putStrLn "----LEITURA DA LISTA FINALIZADA-----"
 
 
--- QUESTÃO 2
+-- QUESTÃO 2 "tentando resolver"
 
-exibeListaProfessores :: [Sistema] -> IO()
-exibeListaProfessores ((Professor matricula nome unidade categoria):xs) = do
-    putStrLn "------PROFESSOR------"
-    putStrLn ("Matricula: " ++ show matricula)
-    putStrLn ("Nome: " ++ show nome)
-    putStrLn ("Unidade: " ++ show unidade)
-    putStrLn ("Categoria: "++ show categoria)
-    exibeListaProfessores xs
+isProfessor :: Sistema -> Bool
+isProfessor (Professor _ _ _ x)
+    |x == "professor" = True
+    |otherwise = False
 
-exibeListaProfessores ((Aluno matricula nome curso nascimento categoria):xs) = exibeListaProfessores xs
 
-exibeListaProfessores ((Disciplina cod nome curso ch categoria):xs) = exibeListaProfessores xs
+-- listaProfessores :: [Sistema]
+-- listaProfessores = (foldl1 (isProfessor) lista)
 
-exibeListaProfessores [] = putStrLn "------FINALIZADO------"
+-- exibeListaProfessores :: [Sistema] -> IO()
+-- exibeListaProfessores  = do
+--     putStrLn "------PROFESSOR------"
+--     putStrLn ("Matricula: " ++ show matricula)
+--     putStrLn ("Nome: " ++ show nome)
+--     putStrLn ("Unidade: " ++ show unidade)
+--     putStrLn ("Categoria: "++ show categoria)
+--     exibeListaProfessores xs
+
+
+-- QUESTÃO 2 "resolvida"
+
+-- exibeListaProfessores :: [Sistema] -> IO()
+-- exibeListaProfessores ((Professor matricula nome unidade categoria):xs) = do
+--     putStrLn "------PROFESSOR------"
+--     putStrLn ("Matricula: " ++ show matricula)
+--     putStrLn ("Nome: " ++ show nome)
+--     putStrLn ("Unidade: " ++ show unidade)
+--     putStrLn ("Categoria: "++ show categoria)
+--     exibeListaProfessores xs
+
+-- exibeListaProfessores ((Aluno matricula nome curso nascimento categoria):xs) = exibeListaProfessores xs
+
+-- exibeListaProfessores ((Disciplina cod nome curso ch categoria):xs) = exibeListaProfessores xs
+
+-- exibeListaProfessores [] = putStrLn "------FINALIZADO------"
 
 
 -- QUESTÃO 3
@@ -166,3 +187,8 @@ exibeListaDisciplinas64 ((Disciplina cod nome curso ch categoria):xs) = do
         exibeListaDisciplinas64 xs
 
 exibeListaDisciplinas64 [] = putStrLn "------FINALIZADO------"
+
+
+
+-- filter, map, foldl1 (função) lista
+-- [a | a <- lista]
