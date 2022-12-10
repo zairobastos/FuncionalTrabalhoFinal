@@ -223,6 +223,8 @@ Para testar o código acima, abra o terminal do VS Code e execute os seguintes c
 > ghci trabalho03.hs
 > listaDisciplinas64 lista
 ```
+### ⏯️ Tutorial de Execução
+![Tutorial](markdown/giftutorial.gif)
 ### 👨‍💻 Desenvolvedores
 <a href="https://github.com/zairobastos/FuncionalTrabalhoFinal/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=zairobastos/FuncionalTrabalhoFinal" />
