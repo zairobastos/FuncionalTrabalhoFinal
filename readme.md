@@ -62,7 +62,8 @@ lista = [item0,item1,item2,item3,item4,item5,item6,item7,item8,item9,item10] -- 
 ### :question: Questões
 Para uma melhor visualização gráfica e compilação das questões, recomendamos realizar o clone do repositório e utilizar uma IDE de Haskell, como o [VS Code](https://code.visualstudio.com/download) e a instalação de algumas extensões que podem lhe ajudar no desenvolvimento e melhor visualização sintática, são elas: [Haskell](https://marketplace.visualstudio.com/items?itemName=haskell.haskell), [Haskell Syntax Highlighting
 ](https://marketplace.visualstudio.com/items?itemName=justusadam.language-haskell) e [haskell-linter](https://marketplace.visualstudio.com/items?itemName=hoovercj.haskell-linter). Existe também uma opção online: [Replit](https://replit.com/).
-1. Crie uma função que recebe uma lista de itens do Sistema e mostre os detalhes de todos os itens de forma legível.
+
+**1. Crie uma função que recebe uma lista de itens do Sistema e mostre os detalhes de todos os itens de forma legível.**
 
 ```haskell
 -- QUESTÃO 1
@@ -102,7 +103,8 @@ Para testar o código acima, abra o terminal do VS Code e execute os seguintes c
 > ghci trabalho03.hs
 > exibeListaCompleta lista
 ```
-2. Crie uma função que recebe uma lista de itens do Sistema e mostre uma lista dos professores.
+
+**2. Crie uma função que recebe uma lista de itens do Sistema e mostre uma lista dos professores.**
 ```haskell
 -- QUESTÃO 2
 
@@ -122,7 +124,8 @@ Para testar o código acima, abra o terminal do VS Code e execute os seguintes c
 > ghci trabalho03.hs
 > exibeListaProfessores lista
 ```
-3. Crie uma função que recebe uma lista de itens do Sistema e mostre uma lista dos alunos.
+
+**3. Crie uma função que recebe uma lista de itens do Sistema e mostre uma lista dos alunos.**
 ```haskell
 -- QUESTÃO 3
 
@@ -142,7 +145,8 @@ Para testar o código acima, abra o terminal do VS Code e execute os seguintes c
 > ghci trabalho03.hs
 > exibeListaAlunos lista
 ```
-4. Crie uma função que recebe uma lista de itens do Sistema e mostre uma lista das disciplinas.
+
+**4. Crie uma função que recebe uma lista de itens do Sistema e mostre uma lista das disciplinas.**
 ```haskell
 -- QUESTÃO 4
 
@@ -162,7 +166,8 @@ Para testar o código acima, abra o terminal do VS Code e execute os seguintes c
 > ghci trabalho03.hs
 > exibeListaDisciplinas lista
 ```
-5. Crie uma função que recebe uma lista de itens do Sistema e mostre uma lista dos alunos, de forma legível, que já atingiram a maioridade, considerando o ano atual de 2022.
+
+**5. Crie uma função que recebe uma lista de itens do Sistema e mostre uma lista dos alunos, de forma legível, que já atingiram a maioridade, considerando o ano atual de 2022.**
 ```haskell
 -- QUESTÃO 5
 
@@ -191,7 +196,7 @@ Para testar o código acima, abra o terminal do VS Code e execute os seguintes c
 > exibeAlunosAdulto lista
 ```
 
-6. Crie uma função que recebe uma lista de itens do Sistema e mostre os detalhes das disciplinas com carga horária acima de 64.
+**6. Crie uma função que recebe uma lista de itens do Sistema e mostre os detalhes das disciplinas com carga horária acima de 64.**
 ```haskell
 -- QUESTÃO 6
 
