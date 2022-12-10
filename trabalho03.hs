@@ -43,16 +43,16 @@ exibeListaCompleta ((Professor matricula nome unidade categoria):xs) = do
     putStrLn ("Matricula: " ++ show matricula)
     putStrLn ("Nome: " ++ show nome)
     putStrLn ("Unidade: " ++ show unidade)
-    putStrLn ("Categoria: "++ show categoria)
+    putStrLn ("Categoria: " ++ show categoria ++ "\n")
     exibeListaCompleta xs
 
-exibeListaCompleta ((Aluno matricula nome curso nascimento categoria):xs) = do
+exibeListaCompleta ((Aluno matricula nome curso (dia, mes, ano) categoria):xs) = do
     putStrLn "------ALUNO------"
     putStrLn ("Matricula: " ++ show matricula)
     putStrLn ("Nome: " ++ show nome)
     putStrLn ("Curso: " ++ show curso)
-    putStrLn ("Nascimento: "++ show nascimento)
-    putStrLn ("Categoria: "++ show categoria)
+    putStrLn ("Nascimento: " ++ show dia ++ "/" ++ show mes ++ "/" ++ show ano)
+    putStrLn ("Categoria: " ++ show categoria ++ "\n")
     exibeListaCompleta xs
 
 exibeListaCompleta ((Disciplina cod nome curso ch categoria):xs) = do
@@ -60,15 +60,15 @@ exibeListaCompleta ((Disciplina cod nome curso ch categoria):xs) = do
     putStrLn ("Código: " ++ show cod)
     putStrLn ("Nome: " ++ show nome)
     putStrLn ("Curso: " ++ show curso)
-    putStrLn ("Carga Horária: "++ show ch)
-    putStrLn ("Categoria: "++ show categoria)
+    putStrLn ("Carga Horária: " ++ show ch)
+    putStrLn ("Categoria: " ++ show categoria ++ "\n")
     exibeListaCompleta xs
 
 exibeListaCompleta [] = do
     putStrLn "----LEITURA DA LISTA FINALIZADA-----"
 
 
--- QUESTÃO 2 "RESOLVIDO COM COMPREENSÃO DE LISTA, SEM FORMATAÇÃO NA SAÍDA"
+-- QUESTÃO 2
 
 isProfessor :: Sistema -> Bool
 isProfessor (Professor _ _ _ x)
@@ -78,30 +78,11 @@ isProfessor (Professor _ _ _ x)
 isProfessor (Aluno {}) = False
 isProfessor (Disciplina {}) = False
 
-
 exibeListaProfessores :: [Sistema] -> IO()
 exibeListaProfessores prof = print([a | a <- lista, isProfessor a])
 
 
--- QUESTÃO 2 "resolvida"
-
--- exibeListaProfessores :: [Sistema] -> IO()
--- exibeListaProfessores ((Professor matricula nome unidade categoria):xs) = do
---     putStrLn "------PROFESSOR------"
---     putStrLn ("Matricula: " ++ show matricula)
---     putStrLn ("Nome: " ++ show nome)
---     putStrLn ("Unidade: " ++ show unidade)
---     putStrLn ("Categoria: "++ show categoria)
---     exibeListaProfessores xs
-
--- exibeListaProfessores ((Aluno matricula nome curso nascimento categoria):xs) = exibeListaProfessores xs
-
--- exibeListaProfessores ((Disciplina cod nome curso ch categoria):xs) = exibeListaProfessores xs
-
--- exibeListaProfessores [] = putStrLn "------FINALIZADO------"
-
-
--- QUESTÃO 3 "RESOLVIDO COM COMPREENSÃO DE LISTA, SEM FORMATAÇÃO NA SAÍDA"
+-- QUESTÃO 3
 
 isAluno :: Sistema -> Bool
 isAluno (Aluno _ _ _ _ x)
@@ -113,29 +94,10 @@ isAluno (Disciplina {}) = False
 
 
 exibeListaAlunos :: [Sistema] -> IO()
-exibeListaAlunos prof = print([a | a <- lista, isAluno a])
+exibeListaAlunos alun = print([a | a <- alun, isAluno a])
 
 
--- QUESTÃO 3 "resolvida"
-
--- exibeListaAlunos :: [Sistema] -> IO()
--- exibeListaAlunos ((Professor matricula nome unidade categoria):xs) = exibeListaAlunos xs
-
--- exibeListaAlunos ((Aluno matricula nome curso nascimento categoria):xs) = do
---     putStrLn "------ALUNO------"
---     putStrLn ("Matricula: " ++ show matricula)
---     putStrLn ("Nome: " ++ show nome)
---     putStrLn ("Curso: " ++ show curso)
---     putStrLn ("Nascimento: "++ show nascimento)
---     putStrLn ("Categoria: "++ show categoria)
---     exibeListaAlunos xs
-
--- exibeListaAlunos ((Disciplina cod nome curso ch categoria):xs) = exibeListaAlunos xs
-
--- exibeListaAlunos [] = putStrLn "------FINALIZADO------"
-
-
--- QUESTÃO 4 "RESOLVIDO COM COMPREENSÃO DE LISTA, SEM FORMATAÇÃO NA SAÍDA"
+-- QUESTÃO 4
 
 isDisciplina :: Sistema -> Bool
 isDisciplina (Disciplina _ _ _ _ x)
@@ -146,72 +108,53 @@ isDisciplina (Professor {}) = False
 isDisciplina (Aluno {}) = False
 
 
-exibeListaDisciplina :: [Sistema] -> IO()
-exibeListaDisciplina prof = print([a | a <- lista, isDisciplina a])
-
--- QUESTÃO 4 "resolvida"
-
--- exibeListaDisciplinas :: [Sistema] -> IO()
--- exibeListaDisciplinas ((Professor matricula nome unidade categoria):xs) = exibeListaDisciplinas xs
-
--- exibeListaDisciplinas ((Aluno matricula nome curso nascimento categoria):xs) = exibeListaDisciplinas xs
-
--- exibeListaDisciplinas ((Disciplina cod nome curso ch categoria):xs) = do
---     putStrLn "------DISCIPLINA------"
---     putStrLn ("Código: " ++ show cod)
---     putStrLn ("Nome: " ++ show nome)
---     putStrLn ("Curso: " ++ show curso)
---     putStrLn ("Carga Horária: "++ show ch)
---     putStrLn ("Categoria: "++ show categoria)
---     exibeListaDisciplinas xs
-
--- exibeListaDisciplinas [] = putStrLn "------FINALIZADO------"
+exibeListaDisciplinas :: [Sistema] -> IO()
+exibeListaDisciplinas disc = print([a | a <- disc, isDisciplina a])
 
 
 -- QUESTÃO 5
 
-exibeListaAlunosAdulto :: [Sistema] -> IO()
-exibeListaAlunosAdulto ((Professor matricula nome unidade categoria):xs) = exibeListaAlunosAdulto xs
+exibeAlunosAdulto :: [Sistema] -> IO()
+exibeAlunosAdulto ((Professor matricula nome unidade categoria):xs) = exibeAlunosAdulto xs
 
-exibeListaAlunosAdulto ((Aluno matricula nome curso (dia, mes, ano) categoria):xs) = do
+exibeAlunosAdulto ((Aluno matricula nome curso (dia, mes, ano) categoria):xs) = do
     if (2022 - ano) >= 18 then do
         putStrLn "------ALUNO------"
         putStrLn ("Matricula: " ++ show matricula)
         putStrLn ("Nome: " ++ show nome)
         putStrLn ("Curso: " ++ show curso)
-        putStrLn ("Nascimento: "++ show (dia, mes, ano))
-        putStrLn ("Categoria: "++ show categoria)
-        exibeListaAlunosAdulto xs
+        putStrLn ("Nascimento: " ++ show dia ++ "/" ++ show mes ++ "/" ++ show ano)
+        putStrLn ("Categoria: " ++ show categoria ++ "\n")
+        exibeAlunosAdulto xs
     else do
-        exibeListaAlunosAdulto xs
+        exibeAlunosAdulto xs
 
-exibeListaAlunosAdulto ((Disciplina cod nome curso ch categoria):xs) = exibeListaAlunosAdulto xs
+exibeAlunosAdulto ((Disciplina cod nome curso ch categoria):xs) = exibeAlunosAdulto xs
 
-exibeListaAlunosAdulto [] = putStrLn "------FINALIZADO------"
+exibeAlunosAdulto [] = putStrLn "------FINALIZADO------"
 
 
--- Questão 06
+-- QUESTÃO 6
+
+isMoreThan64 :: Sistema -> Bool
+isMoreThan64 (Disciplina _ _ _ ch _)
+    |ch > 64 = True
+    |otherwise = False
+
+isMoreThan64 (Aluno {}) = False
+isMoreThan64 (Professor {}) = False
+
+listaDisciplinas64 :: [Sistema] -> IO()
+listaDisciplinas64 disc64 = exibeListaDisciplinas64 (filter isMoreThan64 (filter isDisciplina disc64))
 
 exibeListaDisciplinas64 :: [Sistema] -> IO()
-exibeListaDisciplinas64 ((Professor matricula nome unidade categoria):xs) = exibeListaDisciplinas64 xs
-
-exibeListaDisciplinas64 ((Aluno matricula nome curso nascimento categoria):xs) = exibeListaDisciplinas64 xs
-
 exibeListaDisciplinas64 ((Disciplina cod nome curso ch categoria):xs) = do
-    if ch>64 then do
-        putStrLn "------DISCIPLINA------"
-        putStrLn ("Código: " ++ show cod)
-        putStrLn ("Nome: " ++ show nome)
-        putStrLn ("Curso: " ++ show curso)
-        putStrLn ("Carga Horária: "++ show ch)
-        putStrLn ("Categoria: "++ show categoria)
-        exibeListaDisciplinas64 xs
-    else do
-        exibeListaDisciplinas64 xs
+    putStrLn "------DISCIPLINA------"
+    putStrLn ("Código: " ++ show cod)
+    putStrLn ("Nome: " ++ show nome)
+    putStrLn ("Curso: " ++ show curso)
+    putStrLn ("Carga Horária: "++ show ch)
+    putStrLn ("Categoria: "++ show categoria)
+    exibeListaDisciplinas64 xs
 
-exibeListaDisciplinas64 [] = putStrLn "------FINALIZADO------"
-
-
-
--- filter, map, foldl1 (função) lista
--- [a | a <- lista]
+exibeListaDisciplinas64 [] = putStrLn "-----FINALIZADO-----"
